@@ -23,12 +23,12 @@ Asteroids style game demo using polygons.
 import math
 import random
 import utime
-import board_config
-import tft_buttons as Buttons
-import tft_graphics as st7789
+from tft_graphics import Graphics
+from board_config import display_drv
+import tft_buttons as Buttons    # NOT PROVIDED BY TFT_GRAPHICS
 
 
-tft = board_config.config(board_config.WIDE)
+tft = Graphics(display_drv, rotation=1)
 buttons = Buttons.Buttons()
 
 
@@ -149,13 +149,13 @@ def main():
         Update active missiles and handle asteroid hits.
         """
         for missile in list(missiles):  # for each missile
-            missile.draw(st7789.BLACK)  # erase old missile
+            missile.draw(Graphics.BLACK)  # erase old missile
             if missile.counter > 0:  # if counter > 0 missile is active
                 missile.move()  # update missile position
 
                 for roid in list(roids):  # for each roid
                     if missile.collision(roid):  # check if missile collides with roid
-                        roid.draw(st7789.BLACK)  # erase the roid
+                        roid.draw(Graphics.BLACK)  # erase the roid
                         if roid.counter > 0:  # if roid is not the smallest size
                             roids.append(  # add first smaller roid
                                 create_roid(
@@ -180,7 +180,7 @@ def main():
                         missile.counter = 0
 
                 if missile.counter > 0:  # if the missile has life left
-                    missile.draw(st7789.WHITE)  # draw missile
+                    missile.draw(Graphics.WHITE)  # draw missile
                     missile.counter -= 1  # reduce missile life
                 else:
 
@@ -213,7 +213,7 @@ def main():
             ship.velocity_y = 0.0
 
         ship.move()  # move the ship and draw it
-        ship.draw(st7789.WHITE)
+        ship.draw(Graphics.WHITE)
 
     def update_roids():
         """
@@ -223,12 +223,12 @@ def main():
         not_hit = True
 
         for roid in roids:  # for each roid, erase, move then draw
-            roid.draw(st7789.BLACK)
+            roid.draw(Graphics.BLACK)
             roid.move()
-            roid.draw(st7789.WHITE)
+            roid.draw(Graphics.WHITE)
 
             if roid.collision(ship):  # check for roid/ship collision
-                ship.draw(st7789.BLACK)  # erase ship
+                ship.draw(Graphics.BLACK)  # erase ship
                 ship.velocity_x = 0.0  # stop movement
                 ship.velocity_y = 0.0
 
@@ -245,15 +245,15 @@ def main():
         """
         ship.counter += 1
         if ship.counter % 2 == 0:
-            tft.polygon(explosion_poly, ship.x, ship.y, st7789.BLACK, 0.785398)
-            tft.polygon(explosion_poly, ship.x, ship.y, st7789.WHITE)
+            tft.polygon(explosion_poly, ship.x, ship.y, Graphics.BLACK, 0.785398)
+            tft.polygon(explosion_poly, ship.x, ship.y, Graphics.WHITE)
         else:
-            tft.polygon(explosion_poly, ship.x, ship.y, st7789.WHITE, 0.785398)
-            tft.polygon(explosion_poly, ship.x, ship.y, st7789.BLACK)
+            tft.polygon(explosion_poly, ship.x, ship.y, Graphics.WHITE, 0.785398)
+            tft.polygon(explosion_poly, ship.x, ship.y, Graphics.BLACK)
 
         if ship.counter > 25:
             # erase explosion, move ship to center and stop explosion
-            tft.polygon(explosion_poly, ship.x, ship.y, st7789.BLACK)
+            tft.polygon(explosion_poly, ship.x, ship.y, Graphics.BLACK)
             # move ship to center
             ship.x = width >> 1
             ship.y = height >> 1
@@ -263,7 +263,7 @@ def main():
         return False
 
     # enable display and clear screen
-    tft.fill(st7789.BLACK)
+    tft.fill(Graphics.BLACK)
     width = tft.width
     height = tft.height
 
@@ -334,7 +334,7 @@ def main():
         update_missiles()
 
         # Erase the ship
-        ship.draw(st7789.BLACK)
+        ship.draw(Graphics.BLACK)
 
         if ship_alive:
             # if left button pressed
