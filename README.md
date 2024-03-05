@@ -1,6 +1,7 @@
 # TFT Graphics
-A port of Russ Hughes's st7789py with the display driver data removed so that it works with MPDisplay.  The examples folder contains modified versions of st7789py's examples so they will
-also work with MPDisplay.  To change existing code written for st7789py to work with TFT Graphics:
+A port of [Russ Hughes's st7789py_mpy](https://github.com/russhughes/st7789py_mpy) with the display driver data removed so that it works with [MPDisplay](https://github.com/bdbarnett/mpdisplay).  The examples folder contains modified versions of st7789py_mpy's examples so they will also work with MPDisplay.  I encourage you to look at Russ Hughes's repository for much more information than I am providing here.  It's his work.  I just rewrote it as TFT Graphics so it is compatible with MPDisplay.
+
+To change existing code written for st7789py_mpy to work with TFT Graphics:
 
 Replace
 ```
