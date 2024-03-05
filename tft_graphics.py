@@ -1,6 +1,8 @@
 """
 MIT License
 
+Copyright (c) 2024 Brad Barnett
+
 Copyright (c) 2020-2023 Russ Hughes
 
 Copyright (c) 2019 Ivan Belokobylskiy
