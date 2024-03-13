@@ -1,7 +1,12 @@
-from machine import Timer
 import random
-from tft_graphics import Graphics
 from board_config import display_drv
+from tft_graphics import Graphics
+
+try:
+    from machine import Timer
+    timed = True
+except ImportError:
+    timed = False
 
 
 tft = Graphics(display_drv, rotation=1)
@@ -26,9 +31,10 @@ def print_count(_):
 
 # Prepare for the loop
 print(f"{block_size}x{block_size} blocks per screen: {blocks_per_screen:.2f}")
-print(f"Blocks per second:     ", end="")
-tim = Timer(-1)
-tim.init(mode=Timer.PERIODIC, freq=1, callback=print_count)
+if timed:
+    print(f"Blocks per second:     ", end="")
+    tim = Timer(-1)
+    tim.init(mode=Timer.PERIODIC, freq=1, callback=print_count)
 
 # Infinite loop
 while True:
