@@ -5,13 +5,13 @@ To change existing code written for st7789py_mpy to work with TFT Graphics:
 
 Replace
 ```
+import tft_config
 import st7789py as st7789
-import board_config
 ```
 with:
 ```
-from tft_graphics import Graphics
 from board_config import display_drv
+from tft_graphics import Graphics
 ```
 
 Replace
